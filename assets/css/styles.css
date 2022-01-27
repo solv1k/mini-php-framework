@@ -1,0 +1,15 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.errors {
+    color: red;
+}
+
+.success {
+    color: green;
+    padding: 20px;
+    background-color: rgb(150, 216, 189);
+    border-radius: 20px;
+}
