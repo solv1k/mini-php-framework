@@ -2,15 +2,11 @@
 
 namespace Core\Classes;
 
+use Core\Classes\Base\Singleton;
 use Exception;
 
-class Application
+class Application extends Singleton
 {
-    /**
-     * Инстанс приложения.
-     */
-    private static $instance = null;
-
     /**
      * Конфиг.
      */
@@ -35,27 +31,6 @@ class Application
      * Объект запроса.
      */
     private $request = null;
-
-    /**
-     * Делаем синглтон.
-     */
-    protected function __construct() { }
-    protected function __clone() { }
-    public function __wakeup() {
-        throw new Exception("Application is singleton.");
-    }
-
-    /**
-     * Получить инстанс приложения.
-     */
-    public static function getInstance()
-    {
-        if (null === self::$instance) {
-            self::$instance = new self;
-        }
-
-        return self::$instance;
-    }
 
     /**
      * Инициализация приложения.

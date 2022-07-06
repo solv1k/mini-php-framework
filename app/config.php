@@ -6,15 +6,15 @@
 return [
     'app_url' => 'http://localhost',
 
-    'app_name' => 'Тестовое задание',
+    'app_name' => 'Code Example',
 
-    'app_key' => 'aO25d43bD492cdE2D45eAb0dA15ceE7d015',
+    'app_key' => 'ZhAadeW~_.RFHERbj$mmCK{ab}tW#X(k',
 
     'database' => [
-        'host' => '172.22.0.2',
-        'user' => 'docker',
-        'password' => 'docker',
-        'database' => 'docker',
+        'host' => '127.0.0.1',
+        'user' => 'root',
+        'password' => 'root',
+        'database' => 'code_example',
         'port' => 3306
     ]
 ];

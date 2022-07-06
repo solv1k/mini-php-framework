@@ -2,15 +2,11 @@
 
 namespace Core\Classes;
 
+use Core\Classes\Base\Singleton;
 use Exception, PDO, PDOStatement;
 
-class DB
+class DB extends Singleton
 {
-    /**
-     * Инстанс для реализации Singleton.
-     */
-    private static $instance = null;
-
     /**
      * Конфиг с данными для подключения к базе данных.
      */
@@ -29,16 +25,9 @@ class DB
     private $table;
 
     /**
-     * Делаем синглтон.
+     * Конструктор класса базы данных.
      */
-    private function __clone() {}
-
-    public function __wakeup()
-    {
-        throw new Exception("DB is singleton.");
-    }
-
-    private function __construct()
+    protected function __construct()
     {
         $config = config('database');
 
@@ -86,18 +75,6 @@ class DB
             $this->config['password'],
             [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]
         );
-    }
-
-    /**
-     * Получить инстанс БД.
-     */
-    public static function getInstance()
-    {
-        if (null === self::$instance) {
-            self::$instance = new self;
-        }
-
-        return self::$instance;
     }
 
     /**

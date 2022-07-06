@@ -2,36 +2,11 @@
 
 namespace Core\Classes;
 
+use Core\Classes\Base\Singleton;
 use Exception;
 
-class Template 
+class Template extends Singleton
 {
-    /**
-     * Инстанс шаблона.
-     */
-    private static $instance = null;
-
-    /**
-     * Делаем синглтон.
-     */
-    protected function __construct() { }
-    protected function __clone() { }
-    public function __wakeup() {
-        throw new Exception("Template is singleton.");
-    }
-
-    /**
-     * Получить инстанс приложения.
-     */
-    public static function getInstance()
-    {
-        if (null === self::$instance) {
-            self::$instance = new self;
-        }
-
-        return self::$instance;
-    }
-
     /**
      * Рендерит header.
      */
@@ -85,7 +60,7 @@ class Template
     }
 
     /**
-     * Рендерит тэг <link>
+     * Рендерит тэги <link>
      */
     public function linkTag(array|string $style)
     {
@@ -124,6 +99,9 @@ class Template
         return $this->buildScriptTag($script);
     }
 
+    /**
+     * Рендерит тэг <link>
+     */
     private function buildLinkTag(string $url, array $attributes = [])
     {
         $attributes['rel'] ??= 'stylesheet';
@@ -132,6 +110,9 @@ class Template
         return sprintf('<link href="%s" %s>', $url, $this->buildAttributesString($attributes));
     }
 
+    /**
+     * Рендерит тэг <script>
+     */
     public function buildScriptTag(string $url, array $attributes = [])
     {
         $attributes['type'] ??= 'text/javascript';
@@ -139,8 +120,15 @@ class Template
         return sprintf('<script src="%s" %s></script>', $url, $this->buildAttributesString($attributes));
     }
 
+    /**
+     * Возвращает строку с аттрибутами для HTML-тэга.
+     */
     private function buildAttributesString(array $attributes)
     {
-        return implode(' ', array_map(fn($att, $key) => sprintf('%s="%s"', $key, $att), $attributes, array_keys($attributes)));
+        return implode(' ', array_map(
+            fn($att, $key) => sprintf('%s="%s"', $key, $att),
+            $attributes,
+            array_keys($attributes)
+        ));
     }
 }

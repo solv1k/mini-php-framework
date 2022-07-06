@@ -2,36 +2,10 @@
 
 namespace Core\Classes;
 
-use Exception;
+use Core\Classes\Base\Singleton;
 
-class Cookie
+class Cookie extends Singleton
 {
-    /**
-     * Инстанс класса.
-     */
-    private static $instance = null;
-
-    /**
-     * Делаем синглтон.
-     */
-    protected function __construct() { }
-    protected function __clone() { }
-    public function __wakeup() {
-        throw new Exception("Cookie is singleton.");
-    }
-
-    /**
-     * Получить инстанс.
-     */
-    public static function getInstance()
-    {
-        if (null === self::$instance) {
-            self::$instance = new self;
-        }
-
-        return self::$instance;
-    }
-
     /**
      * Получает куку по заданному ключу или возвращает дефолтное значение.
      */

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Core\Classes\DB;
 use Core\Classes\Hash;
-use PDO;
 
 class User extends Model
 {

@@ -2,15 +2,11 @@
 
 namespace Core\Classes;
 
+use Core\Classes\Base\Singleton;
 use Exception;
 
-class Validator
+class Validator extends Singleton
 {
-    /**
-     * Инстанс валидатора.
-     */
-    private static $instance = null;
-
     /**
      * Массив с сообщениями об ошибках валидации.
      */
@@ -24,16 +20,11 @@ class Validator
     /**
      * Конструктор.
      */
-    private function __construct(array $data, array $rules)
+    protected function __construct(array $data, array $rules)
     {
         $this->setData($data);
         $this->setRules($rules);
         $this->loadMessages();
-    }
-
-    protected function __clone() { }
-    public function __wakeup() {
-        throw new Exception("Validator is singleton.");
     }
 
     public function setData(array $data)
@@ -61,28 +52,14 @@ class Validator
     }
 
     /**
-     * Возвращает инстанс валидатора.
-     */
-    private static function getInstance(array $data, array $rules)
-    {
-        $instance = self::$instance;
-
-        if (null === $instance) {
-            $instance = new self($data, $rules);
-        } else {
-            $instance->setData($data);
-            $instance->setRules($rules);
-        }
-
-        return $instance;
-    }
-
-    /**
      * Создаёт валидатор согласно переданным данным и правилам.
      */
     public static function make(array $data, array $rules)
     {
-        $instance = self::getInstance($data, $rules);
+        $instance = self::getInstance();
+
+        $instance->setData($data);
+        $instance->setRules($rules);
 
         return $instance;
     }
